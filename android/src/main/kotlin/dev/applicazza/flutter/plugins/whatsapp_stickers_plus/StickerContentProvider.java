@@ -40,6 +40,8 @@ import static dev.applicazza.flutter.plugins.whatsapp_stickers_plus.ConfigFileMa
 
 public class StickerContentProvider extends ContentProvider {
 
+    private static final String TRAY_IMAGE_FILENAME = "t.png";
+
     /**
      * Do not change the strings listed below, as these are used by WhatsApp. And
      * changing these will break the interface between sticker app and WhatsApp.
@@ -216,7 +218,7 @@ public class StickerContentProvider extends ContentProvider {
             builder.add(stickerPack.identifier);
             builder.add(stickerPack.name);
             builder.add(stickerPack.publisher);
-            builder.add(stickerPack.trayImageFile);
+            builder.add(TRAY_IMAGE_FILENAME);
             builder.add(stickerPack.androidPlayStoreLink);
             builder.add(stickerPack.iosAppStoreLink);
             builder.add(stickerPack.publisherEmail);
@@ -263,8 +265,8 @@ public class StickerContentProvider extends ContentProvider {
         // making sure the file that is trying to be fetched is in the list of stickers.
         for (StickerPack stickerPack : getStickerPackList()) {
             if (identifier.equals(stickerPack.identifier)) {
-                if (fileName.equals(stickerPack.trayImageFile)) {
-                    return fetchFile(uri, am, fileName, identifier);
+                if (fileName.equals(TRAY_IMAGE_FILENAME)) {
+                    return fetchFile(uri, am, stickerPack.trayImageFile, identifier);
                 } else {
                     for (Sticker sticker : stickerPack.getStickers()) {
                         if (fileName.equals(sticker.imageFileName)) {
