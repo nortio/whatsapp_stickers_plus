@@ -92,7 +92,10 @@ public class WhatsappStickersPlugin: FlutterPlugin, MethodCallHandler, ActivityA
         if (stickerPackIdentifier != null && context != null) {
           val installed = WhitelistCheck.isWhitelisted(context!!, stickerPackIdentifier)
           result.success(installed);
+        } else {
+          result.success(false);
         }
+
       }
       "sendToWhatsApp" -> {
         try{

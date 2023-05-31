@@ -28,6 +28,15 @@ class WhatsappStickers {
     _stickers[image.path] = emojis;
   }
 
+  Future<bool> isInstalled() async {
+    final payload = <String, dynamic>{};
+    payload['identifier'] = identifier;
+
+    return await _channel.invokeMethod<bool>(
+            'isStickerPackInstalled', payload) ??
+        false;
+  }
+
   Future<void> sendToWhatsApp() async {
     try {
       final payload = <String, dynamic>{};
